@@ -1,0 +1,29 @@
+﻿@model ChronicCondition
+@{
+    ViewData["Title"] = "Create Chronic Condition";
+}
+<form asp-action="Create">
+    <div class="row mt-3">
+        <div class="form-group col-md-6">
+            <label><b>Chronic Condition</b></label>
+            <div class="col-md-10">
+                <input asp-for="ConditionName" class="form-control" />
+                <span asp-validation-for="ConditionName" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="form-group col-md-6">
+            <label><b>Condition Description</b></label>
+            <div class="col-md-10">
+                <input asp-for="ConditionDescription" class="form-control" />
+                <span asp-validation-for="ConditionDescription" class="text-danger"></span>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div class="row">
+        <div class="form-group col-md-2">
+            <input type="submit" value="Create" class="btn btn-primary" />
+        </div>
+    </div>
+</form>
