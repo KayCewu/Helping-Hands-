@@ -1,0 +1,43 @@
+﻿@using Helping_Hands_2._0.Models.ViewModels
+@model NurseUpdate
+@{
+    ViewData["Title"] = "Profile";
+}
+
+<form asp-action="UpdateProfile">
+    <div class="row mt-3">
+        <div class="form-group col-md-6">
+            <label><b>Name</b></label>
+            <div class="col-md-10">
+                <input class="form-control" asp-for="FName" />
+            </div>
+        </div>
+
+        <div class="form-group col-md-6">
+            <label><b>Surname</b></label>
+            <div class="col-md-10">
+                <input class="form-control" asp-for="LName"/>
+            </div>
+        </div>
+
+    </div>
+    <div class="row mt-3">
+        <div class="form-group col-md-6">
+            <label><b>Gender</b></label>
+            <div class="col-md-10">
+                <input class="form-control" asp-for="Gender" />
+            </div>
+        </div>
+
+        <div class="form-group col-md-6">
+            <label><b>ID Number</b></label>
+            <div class="col-md-10">
+                <input class="form-control" asp-for="IDNumber"/>
+            </div>
+        </div>
+        
+
+    </div>
+    <br />
+    <input type="submit" value="Update" class="btn btn-primary" />
+</form>

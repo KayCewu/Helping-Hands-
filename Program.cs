@@ -15,7 +15,9 @@ namespace Helping_Hands_2._0
 
             builder.Services.AddDbContext<HelpingHandsDbContext>(options =>
 options.UseSqlServer(connectionString));
+            
            
+
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                .AddRoles<IdentityRole>()
                .AddEntityFrameworkStores<HelpingHandsDbContext>();

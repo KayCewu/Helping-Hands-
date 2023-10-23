@@ -1,0 +1,60 @@
+﻿@using Helping_Hands_2._0.Models
+@model IEnumerable<Suburb>
+@{
+    ViewData["Title"] = "Preferred Suburbs";
+}
+<html>
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
+</head>
+<body>
+
+    <div class="container md-6">
+        <h2>Preferred Suburbs</h2>
+        <div class="row">
+            <div class="col-md-10">
+                <input class="btn btn-success btn-sm" value="Create" onclick="location.href='@Url.Action("Create", "Conditions")'" />
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+    <div class="card bg-light">
+        <br />
+        <table class="table" id="myTable">
+            <thead>
+                <tr>
+                    <th>Suburb Name</th>
+                    <th>Postal Address</th>
+                    <th>City Name</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var CC in Model)
+                {
+                    <tr>
+                        <td>@CC.SuburbName</td>
+                        <td>@CC.PostalCode</td>
+                        <td>@CC.CityId</td>
+                        <td>
+
+                            <input class="btn btn-success btn-sm" value="Take On" data-bs-toggle="tooltip" title="x" onclick="location.href='@Url.Action("Create","Conditions", new{id=CC.SuburbId})'" />
+           
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+<script>
+    let table = new DataTable('#myTable');
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+</script>
