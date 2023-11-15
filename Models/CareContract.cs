@@ -13,17 +13,15 @@ public partial class CareContract
 
     public string ContractAddress { get; set; } = null!;
 
-    public DateTime? StartDate { get; set; }
+    public DateTime StartDate { get; set; }
 
-    public DateTime? EndDate { get; set; }
+    public DateTime EndDate { get; set; }
 
     public int? AssignedNurse { get; set; }
 
     public int PatientNo { get; set; }
 
     public string WoundDescription { get; set; } = null!;
-
-    public string IsActive { get; set; } = null!;
 
     public virtual Patient PatientNoNavigation { get; set; } = null!;
 

@@ -1,6 +1,7 @@
 ﻿using Helping_Hands_2._0.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using System.Collections;
 
 namespace Helping_Hands_2._0.Services
 {
@@ -58,6 +59,13 @@ namespace Helping_Hands_2._0.Services
                     _context.SaveChanges();
                 }
             }
+        }
+
+        public IEnumerable<PatientChronicCon> MyChronicConditions(string Email)
+        {
+            int userid = _context.Users.Where(x => x.Email == Email).Select(x => x.Id).FirstOrDefault();
+            var chroniccons = _context.PatientChronicCons.ToList().Where(y => y.UserId == userid);
+            return chroniccons;
         }
     }
     

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Helping_Hands_2._0.Areas.Identity.Data;
 using Helping_Hands_2._0.Services;
 using Helping_Hands_2._0.Models;
+using Microsoft.AspNetCore.Identity.UI.Services;
 
 namespace Helping_Hands_2._0
 {
@@ -15,8 +16,9 @@ namespace Helping_Hands_2._0
 
             builder.Services.AddDbContext<HelpingHandsDbContext>(options =>
 options.UseSqlServer(connectionString));
-            
-           
+            builder.Services.AddTransient<IEmailSender, EmailService>();
+
+
 
             builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                .AddRoles<IdentityRole>()
@@ -28,6 +30,7 @@ options.UseSqlServer(connectionString));
             builder.Services.AddTransient<INurseService, NurseService>();
             builder.Services.AddTransient<IPatientService, PatientService>();
             builder.Services.AddTransient<IConditionsService, ConditionsService>();
+            builder.Services.AddTransient<ICareContract, CareContractService>();
 
 
 

@@ -8,6 +8,9 @@
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </head>
 <body>
 
@@ -26,9 +29,9 @@
         <table class="table" id="myTable">
             <thead>
                 <tr>
-                    <th>Suburb Name</th>
-                    <th>Postal Address</th>
-                    <th>City Name</th>
+                    <th>Patient Address</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -38,11 +41,11 @@
                    
                     <tr>
                         <td>@MyContract.ContractAddress</td>
-                        <td></td>
-                        <td></td>
+                        <td>@MyContract.StartDate</td>
+                        <td>@MyContract.EndDate</td>
                         <td>
-
-                            <input class="btn btn-success btn-sm" value="Take On" data-bs-toggle="tooltip" title="x" onclick="location.href='@Url.Action("Create","Conditions", new{id=MyContract.CareContractId})'" />
+                            <input class="btn btn-success btn-sm" value="More Info" data-toggle="modal" data-target="#myModal"/>
+                            <input class="btn btn-success btn-sm" value="Visit" data-bs-toggle="tooltip" title="x" onclick="location.href='@Url.Action("Create","Conditions", new{id=MyContract.CareContractId})'" />
 
                         </td>
                     </tr>
@@ -51,6 +54,8 @@
             </tbody>
         </table>
     </div>
+    <partial name="_MyModal" />
+
 </body>
 </html>
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>

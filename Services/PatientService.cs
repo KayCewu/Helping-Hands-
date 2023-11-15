@@ -1,4 +1,6 @@
 ﻿using Helping_Hands_2._0.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 namespace Helping_Hands_2._0.Services
 {
@@ -34,6 +36,21 @@ namespace Helping_Hands_2._0.Services
         {
             _context.Add(patient);
             _context.SaveChanges();
+        }
+
+        public List<string> LoadSuburbs()
+        {
+            var suburbList = _context.Suburbs.Select(s => s.SuburbName).ToList();
+            //var suburbList = _context.Suburbs.Select(s => new SelectListItem { Value = s.SuburbId.ToString(), Text = s.SuburbName }).ToList();
+            //var model = new Patient()
+            //{
+            //    Suburb = suburbList
+            //};
+            return suburbList;
+            //model.Suburb = new SelectList(suburbs);
+            //ViewBag.SuburbList = new SelectList(dbContext.Suburbs, "Id", "Name");
+            
+            //return View(model);
         }
     }
 }

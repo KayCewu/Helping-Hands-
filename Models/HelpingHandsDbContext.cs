@@ -7,7 +7,6 @@ namespace Helping_Hands_2._0.Models;
 
 public partial class HelpingHandsDbContext : ApplicationDBContext
 {
- 
 
     public HelpingHandsDbContext(DbContextOptions<HelpingHandsDbContext> options)
         : base(options)
@@ -29,6 +28,8 @@ public partial class HelpingHandsDbContext : ApplicationDBContext
     public virtual DbSet<Nurse> Nurses { get; set; }
 
     public virtual DbSet<Patient> Patients { get; set; }
+
+    public virtual DbSet<PatientChronicCon> PatientChronicCons { get; set; }
 
     public virtual DbSet<PreferredSuburb> PreferredSuburbs { get; set; }
 
@@ -87,9 +88,7 @@ public partial class HelpingHandsDbContext : ApplicationDBContext
                 .HasMaxLength(1)
                 .IsUnicode(false);
             entity.Property(e => e.EndDate).HasColumnType("date");
-            entity.Property(e => e.IsActive)
-                .HasMaxLength(1)
-                .IsUnicode(false);
+           
             entity.Property(e => e.StartDate).HasColumnType("date");
             entity.Property(e => e.WoundDescription)
                 .HasMaxLength(100)
@@ -167,6 +166,7 @@ public partial class HelpingHandsDbContext : ApplicationDBContext
 
             entity.ToTable("Nurse");
 
+            entity.Property(e => e.Email).HasMaxLength(256);
             entity.Property(e => e.FirstName)
                 .HasMaxLength(30)
                 .IsUnicode(false);
@@ -229,6 +229,20 @@ public partial class HelpingHandsDbContext : ApplicationDBContext
                 .IsUnicode(false);
         });
 
+        modelBuilder.Entity<PatientChronicCon>(entity =>
+        {
+            entity.HasNoKey();
+
+            entity.Property(e => e.ChronicCondition)
+                .HasMaxLength(100)
+                .IsFixedLength();
+            entity.Property(e => e.Id)
+                .HasMaxLength(10)
+                .IsFixedLength()
+                .HasColumnName("ID");
+            entity.Property(e => e.UserId).HasColumnName("UserID");
+        });
+
         modelBuilder.Entity<PreferredSuburb>(entity =>
         {
             entity.HasKey(e => e.PrefSubId).HasName("PK__Preferre__964072517A9CE979");
@@ -271,13 +285,14 @@ public partial class HelpingHandsDbContext : ApplicationDBContext
 
         modelBuilder.Entity<User>(entity =>
         {
-            entity.HasKey(e => e.Email);
+            entity.HasKey(e => e.Id).HasName("PK__Users__3213E83FA8D24126");
 
-            entity.Property(e => e.Email)
-                .HasMaxLength(30)
-                .IsUnicode(false);
+            entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.ContactNo)
                 .HasMaxLength(12)
+                .IsUnicode(false);
+            entity.Property(e => e.Email)
+                .HasMaxLength(30)
                 .IsUnicode(false);
             entity.Property(e => e.IsActive)
                 .HasMaxLength(1)

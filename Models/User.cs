@@ -16,4 +16,6 @@ public partial class User
     public string UserType { get; set; } = null!;
 
     public string? IsActive { get; set; }
+
+    public int Id { get; set; }
 }

@@ -31,7 +31,8 @@ namespace Helping_Hands_2._0.Controllers
         public IActionResult MyCareContracts(string email)
         {
             email = User.Identity.Name; 
-            var MyContracts = _NurseService.MyCareContracts(email); 
+            var MyContracts = _NurseService.MyCareContracts(email);
+            
             return View(MyContracts);
         }
 

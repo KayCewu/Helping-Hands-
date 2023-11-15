@@ -104,9 +104,12 @@ namespace Helping_Hands_2._0.Services
         public List<CareContract> MyCareContracts(string email)
         {
             int id = _context.Nurses.Where(x => x.Email == email).Select(n => n.NurseCode).FirstOrDefault();
-
-            var MyContracts= _context.CareContracts.Where(x=>x.AssignedNurse == id).ToList();
+            
+            var MyContracts= _context.CareContracts.Where(x=>x.AssignedNurse == id && x.ContractStatus=="A").ToList();
+             
             return MyContracts;
         }
+
+        
     }
 }

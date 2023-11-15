@@ -1,0 +1,45 @@
+﻿@model CareContract
+@{
+    ViewData["Title"] = "Details";
+}
+<div class="container md-6">
+    <center><h2>Create Care Contract</h2></center>
+    <br />
+</div>
+<div class="card px-lg-4 mb-2">
+    <form asp-action="CreateCareContract">
+        <div class="row mt-3">
+            <div class="form-group col-md-6">
+                <label><b>Start Date</b></label>
+                <div class="col-md-10">
+                    <input asp-for="StartDate" type="date" asp-format="{0:d}" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label><b>End Date</b></label>
+                <div class="col-md-10">
+                    <input asp-for="EndDate" type="date" asp-format="{0:d}" class="form-control" />
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="form-group col-md-6">
+                <label><b>Wound Description</b></label>
+                <div class="col-md-10">
+                    <input asp-for="WoundDescription" class="form-control" />
+                </div>
+            </div>
+
+            <div class="form-group col-md-6">
+                <label><b>Address</b></label>
+                <div class="col-md-10">
+                    <input asp-for="ContractAddress" class="form-control" />
+                </div>
+            </div>
+        </div>
+        <br />
+        <input type="submit" value="Create" class="btn btn-primary" />
+        <br />
+    </form>
+</div>

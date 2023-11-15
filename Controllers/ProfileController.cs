@@ -13,10 +13,13 @@ namespace Helping_Hands_2._0.Controllers
         }
         public IActionResult Index()
         {
+            
             return View();
         }
         public IActionResult PatientProfile()
         {
+            
+           ViewBag.Suburbs =_ps.LoadSuburbs();
             return View();
         }
         [HttpPost]
@@ -29,5 +32,6 @@ namespace Helping_Hands_2._0.Controllers
             }
             return View();
         }
+        
     }
 }

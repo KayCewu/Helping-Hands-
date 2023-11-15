@@ -15,11 +15,11 @@ public partial class Nurse
 
     public string Idno { get; set; } = null!;
 
-    public string Email { get; set; }
-
     public int Manager { get; set; }
 
     public string IsActive { get; set; } = null!;
+
+    public string? Email { get; set; }
 
     public virtual Manager ManagerNavigation { get; set; } = null!;
 

@@ -7,6 +7,7 @@ namespace Helping_Hands_2._0.Services
         void AddCondition(ChronicCondition condition);
         List<ChronicCondition> GetConditions();
         void Delete(int ID);
+        IEnumerable<PatientChronicCon> MyChronicConditions(string Email);
 
     }
 }

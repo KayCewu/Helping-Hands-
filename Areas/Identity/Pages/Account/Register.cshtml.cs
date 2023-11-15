@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Helping_Hands_2._0.Areas.Identity.Pages.Account
 {
@@ -30,6 +31,7 @@ namespace Helping_Hands_2._0.Areas.Identity.Pages.Account
         private readonly IUserEmailStore<IdentityUser> _emailStore;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
@@ -132,8 +134,13 @@ namespace Helping_Hands_2._0.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = userId, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
-                    await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
-                        $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+                    var email = Input.Email;
+                    var subject = "Welcome to Our Application";
+                    var message = "Thank you for registering with our application.";
+                    await _emailSender.SendEmailAsync(email, subject, message);
+
+                    //await _emailSender.SendEmailAsync(Input.Email, "Confirm your email",
+                    //    $"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {

@@ -21,6 +21,12 @@ namespace Helping_Hands_2._0.Controllers
         {
             return View();
         }
+        public IActionResult MemberCons()
+        {
+            string Email = User.Identity.Name;
+            var Conditions = _conditions.MyChronicConditions(Email);
+            return View(Conditions);
+        }
         [HttpPost]
         public IActionResult Create(ChronicCondition chronicCondition){
             if (ModelState.IsValid)
@@ -34,5 +40,6 @@ namespace Helping_Hands_2._0.Controllers
             _conditions.Delete(Id);
             return RedirectToAction("Index", "Conditions");
         }
+        
     }
 }
