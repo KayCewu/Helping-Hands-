@@ -106,10 +106,38 @@ namespace Helping_Hands_2._0.Services
             int id = _context.Nurses.Where(x => x.Email == email).Select(n => n.NurseCode).FirstOrDefault();
             
             var MyContracts= _context.CareContracts.Where(x=>x.AssignedNurse == id && x.ContractStatus=="A").ToList();
-             
+
             return MyContracts;
         }
 
-        
+        public string PatientName(int id)
+        {
+            var PName = _context.Patients.Where(x => x.PatientId == id).Select(n => n.PatientName).FirstOrDefault();
+            return PName;
+        }
+
+        public string PatientSurname(int id)
+        {
+            var PSurname = _context.Patients.Where(x => x.PatientId == id).Select(n => n.Surname).FirstOrDefault();
+            return PSurname;
+        }
+
+        public string EmergencyPersonel(int id)
+        {
+            var EmergPerson = _context.Patients.Where(x => x.PatientId == id).Select(n => n.EmergencyContact).FirstOrDefault();
+            return EmergPerson;
+        }
+
+        public string EmergencyContact(int id)
+        {
+            var EmergPersonContact = _context.Patients.Where(x => x.PatientId == id).Select(n => n.EmergencyNumber).FirstOrDefault();
+            return EmergPersonContact;
+        }
+        public string PatientNo(int id)
+        {
+            var ClientNo = _context.Users.Where(x => x.Id == id).Select(n => n.ContactNo).FirstOrDefault();
+            return ClientNo;
+        }
+
     }
 }

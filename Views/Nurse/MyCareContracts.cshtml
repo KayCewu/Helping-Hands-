@@ -1,5 +1,5 @@
-﻿@using Helping_Hands_2._0.Models
-@model IEnumerable<CareContract>
+﻿@using Helping_Hands_2._0.Models;
+@model IEnumerable<CareContract>;
 @{
     ViewData["Title"] = "My Care Contracts";
    
@@ -44,8 +44,15 @@
                         <td>@MyContract.StartDate</td>
                         <td>@MyContract.EndDate</td>
                         <td>
-                            <input class="btn btn-success btn-sm" value="More Info" data-toggle="modal" data-target="#myModal"/>
-                            <input class="btn btn-success btn-sm" value="Visit" data-bs-toggle="tooltip" title="x" onclick="location.href='@Url.Action("Create","Conditions", new{id=MyContract.CareContractId})'" />
+                            <input class="btn btn-success btn-sm" id="more-info-btn" value="More Info" data-toggle="modal" 
+                            data-pname="@MyContract.PatientName" 
+                            data-psurname="@MyContract.PatientSurname"
+                            data-wound="@MyContract.WoundDescription"
+                            data-EmergPName="@MyContract.EmergencyContact"
+                            data-EmergPNo="@MyContract.EmergencyNo"
+                            data-ClientNo="@MyContract.PhoneNumber"
+                            data-target="#myModal" />
+                            <input class="btn btn-success btn-sm" value="Visit" data-bs-toggle="tooltip" title="x" onclick="location.href='@Url.Action("CreateCareVisit","CareContract", new{id=MyContract.CareContractId})'" />
 
                         </td>
                     </tr>
@@ -65,4 +72,30 @@
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl)
     })
+    document.addEventListener('DOMContentLoaded', function () {
+        var moreInfoBtns = document.querySelectorAll('#more-info-btn');
+
+        moreInfoBtns.forEach(function (btn) {
+            btn.addEventListener('click', function () {
+              
+                var PName = this.getAttribute('data-pname');
+                var PSurname = this.getAttribute('data-psurname');
+                var WDesc = this.getAttribute('data-wound');
+                var EmergName = this.getAttribute('data-EmergPName');
+                var EmergNo = this.getAttribute('data-EmergPNo');
+                var ClientNo = this.getAttribute('data-ClientNo');
+
+                
+                document.getElementById('myModal').querySelector('#modalPName').innerText = PName;
+                document.getElementById('myModal').querySelector('#modalPSurname').innerText = PSurname;
+                document.getElementById('myModal').querySelector('#modalWound').innerHTML=WDesc;
+                document.getElementById('myModal').querySelector('#modalCellNo').innerHTML = ClientNo;
+
+                document.getElementById('myModal').querySelector('#modalEmergency').innerHTML = EmergName+':'+EmergNo;
+
+            });
+        });
+    });
+
+
 </script>

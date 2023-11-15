@@ -35,6 +35,8 @@ namespace Helping_Hands_2._0.Services
                     parameters.Add("@WDesc", careContract.WoundDescription, DbType.String, ParameterDirection.Input);
                     parameters.Add("@PNo", UserId, DbType.Int32, ParameterDirection.Input);
                     parameters.Add("@CDate", careContract.ContractDate, DbType.DateTime, ParameterDirection.Input);
+                    parameters.Add("@AssignedNurse", 0, DbType.Int32, ParameterDirection.Input);
+                    
 
                     connection.Execute("SP_CreateCareContract", parameters, commandType: CommandType.StoredProcedure);
                 }

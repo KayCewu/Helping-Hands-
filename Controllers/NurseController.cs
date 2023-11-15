@@ -33,6 +33,16 @@ namespace Helping_Hands_2._0.Controllers
             email = User.Identity.Name; 
             var MyContracts = _NurseService.MyCareContracts(email);
             
+            foreach(var x in MyContracts)
+            {
+                x.PatientName = _NurseService.PatientName(x.PatientNo);
+                x.PatientSurname = _NurseService.PatientSurname(x.PatientNo);
+                x.EmergencyContact = _NurseService.EmergencyPersonel(x.PatientNo);
+                x.EmergencyNo= _NurseService.EmergencyContact(x.PatientNo);
+                x.PhoneNumber = _NurseService.PatientNo(x.PatientNo);
+
+            }
+            
             return View(MyContracts);
         }
 

@@ -29,5 +29,15 @@ namespace Helping_Hands_2._0.Controllers
             _careContract.CreateContract(cc,Email);
             return View(cc);
         }
+        [HttpGet]
+        public IActionResult CreateCareVisit()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult CreateCareVisit(VisitInfo vi)
+        {
+            return View();
+        }
     }
 }
