@@ -64,5 +64,17 @@ namespace Helping_Hands_2._0.Services
                 }
             }
         }
+
+        public List<CareContract> MyClosedContracts(string email)
+        {
+            var id = _context.Nurses.Where(x => x.Email == email).Select(t => t.NurseCode).FirstOrDefault();
+            var closed = _context.CareContracts.Where(x => x.ContractStatus == "C" && x.AssignedNurse == id).ToList();
+            return closed;
+        }
+
+        public void updateVisit(int VisitId, VisitInfo vInfo)
+        {
+          
+        }
     }
 }

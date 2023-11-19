@@ -1,6 +1,5 @@
 ﻿<!-- _MyModal.cshtml -->
-@model VisitInfo
-<div class="modal fade" id="Modalcv" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="careVisit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -11,37 +10,42 @@
             </div>
             <div class="modal-body">
                 <!-- Your modal content goes here -->
-                <form asp-action="Create">
-                    <div class="row">
-                        <div class="row mt-3">
-                            <div class="form-group col-md-6">
-                                <label><b>Visit Date</b></label>
-                                <div class="col-md-10">
-                                    <input asp-for="VisitDate" class="form-control" />
-                                    <span asp-validation-for="VisitDate" class="text-danger"></span>
-                                </div>
-                            </div>
+                <div class="card px-lg-4 mb-2">
+                    <div class="row mt-3">
+                        <div class="form-group col-md-6">
+                            <label><b>First Name:</b></label>
+                            <div class="col-md-10">
+                                <label id="modalPName"></label>
 
-                            <div class="form-group col-md-6">
-                                <label><b>Approximate Arrival Time</b></label>
-                                <div class="col-md-10">
-                                    <input asp-for="ApproxArrivalTime" class="form-control" />
-                                    <span asp-validation-for="ApproxArrivalTime" class="text-danger"></span>
-                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label><b>Surname</b></label>
+                            <div class="col-md-10">
+                                <label id="modalPSurname"></label>
                             </div>
                         </div>
                     </div>
-                    <br />
-                    <div class="row">
-                        <div class="form-group col-md-2">
-                            <input type="submit" value="Create" class="btn btn-primary" />
+                    <div class="row mt-3">
+                        <div class="form-group col-md-6">
+                            <label><b>Wound Description</b></label>
+                            <div class="col-md-10">
+                                <label id="modalWound"></label>
+                            </div>
+                        </div>
+
+                        <div class="form-group col-md-6">
+                            <label><b>Client Number</b></label>
+                            <div class="col-md-10">
+                                <label id="modalCellNo"></label>
+                            </div>
                         </div>
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
-</div>

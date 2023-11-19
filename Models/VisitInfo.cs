@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Helping_Hands_2._0.Models;
 
@@ -22,4 +24,10 @@ public partial class VisitInfo
     public string? Notes { get; set; }
 
     public virtual CareContract? ContractNoNavigation { get; set; }
+    [NotMapped]
+    public string PatientName { get; set; }
+    [NotMapped]
+    public string PatienSurname{ get; set; }
+    [NotMapped]
+    public string CellPhoneNumber { get; set; }
 }

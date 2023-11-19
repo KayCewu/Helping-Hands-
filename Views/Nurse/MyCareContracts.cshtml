@@ -53,7 +53,7 @@
                             data-ClientNo="@MyContract.PhoneNumber"
                             data-target="#myModal" />
                             <input class="btn btn-success btn-sm" value="Visit" data-bs-toggle="tooltip" title="x" onclick="location.href='@Url.Action("CreateCareVisit","Nurse", new{id=MyContract.CareContractId})'" />
-
+                            <input class="btn btn-info btn-sm" value="Close Contract" data-bs-toggle="tooltip" title="Clicking this button will terminate the contract" onclick="location.href='@Url.Action("CloseCareContract","Nurse", new{id=MyContract.CareContractId})'" />
                         </td>
                     </tr>
                     

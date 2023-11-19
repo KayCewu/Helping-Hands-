@@ -117,6 +117,7 @@ namespace Helping_Hands_2._0.Services
             return MyContracts;
         }
 
+
         public string PatientName(int id)
         {
             var PName = _context.Patients.Where(x => x.PatientId == id).Select(n => n.PatientName).FirstOrDefault();
@@ -174,6 +175,23 @@ namespace Helping_Hands_2._0.Services
                 .Where(x => contractIds.Contains(x.ContractNo))
                 .ToList();
             return MyCareVisits;
+        }
+
+        public void TakeCareContract(int id, string email)
+        {
+            var MyId = _context.Nurses.Where(x => x.Email == email).Select(n => n.NurseCode).FirstOrDefault();
+            var contract = _context.CareContracts.Where(x => x.CareContractId == id).FirstOrDefault();
+            contract.ContractStatus = "A";
+            contract.AssignedNurse = MyId;
+            _context.SaveChanges();
+        }
+        public void CloseCareContract(int id, string email)
+        {
+            var MyId = _context.Nurses.Where(x => x.Email == email).Select(n => n.NurseCode).FirstOrDefault();
+            var contract = _context.CareContracts.Where(x => x.CareContractId == id).FirstOrDefault();
+            
+            contract.ContractStatus = "C";
+            _context.SaveChanges();
         }
     }
 }

@@ -25,7 +25,15 @@ namespace Helping_Hands_2._0.Controllers
         public IActionResult CareVisitIndex(string email)
         {
             email = User.Identity.Name;
-            var MyCareVisits=_NurseService.GetVisitInfo(email);
+            var MyCareVisits = _NurseService.GetVisitInfo(email);
+
+            foreach (var x in MyCareVisits)
+            {
+                x.PatientName = _NurseService.PatientName(x.VisitId);
+                x.PatienSurname = _NurseService.PatientSurname(x.VisitId);
+                x.CellPhoneNumber = _NurseService.PatientNo(x.VisitId);
+
+            }
             return View(MyCareVisits);
         }
         public IActionResult CareContracts()
@@ -36,10 +44,26 @@ namespace Helping_Hands_2._0.Controllers
         public IActionResult OfficeManagerNewContracts()
         {
             var Contracts = _NurseService.GetCareContractsOfficeManager();
-            ViewBag.Nurses= _NurseService.GetNurseNameList();
+            ViewBag.Nurses = _NurseService.GetNurseNameList();
             return View(Contracts);
         }
-       
+        
+        public IActionResult TakeCareContract(int id, string email)
+        {
+            email = User.Identity.Name;
+            _NurseService.TakeCareContract(id, email);
+            return RedirectToAction("Index","CareContract");
+
+        }
+        
+        public IActionResult CloseCareContract(int id, string email)
+        {
+            email = User.Identity.Name;
+            _NurseService.CloseCareContract(id, email);
+            return RedirectToAction("ClosedCareContracts", "CareContract");
+
+        }
+
 
         public IActionResult MyCareContracts(string email)
         {
@@ -56,6 +80,23 @@ namespace Helping_Hands_2._0.Controllers
 
             }
             
+            return View(MyContracts);
+        }
+        public IActionResult MyCareVisits(string email)
+        {
+            email = User.Identity.Name;
+            var MyContracts = _NurseService.MyCareContracts(email);
+
+            foreach (var x in MyContracts)
+            {
+                x.PatientName = _NurseService.PatientName(x.PatientNo);
+                x.PatientSurname = _NurseService.PatientSurname(x.PatientNo);
+                x.EmergencyContact = _NurseService.EmergencyPersonel(x.PatientNo);
+                x.EmergencyNo = _NurseService.EmergencyContact(x.PatientNo);
+                x.PhoneNumber = _NurseService.PatientNo(x.PatientNo);
+
+            }
+
             return View(MyContracts);
         }
 

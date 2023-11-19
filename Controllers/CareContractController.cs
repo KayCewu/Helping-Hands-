@@ -34,11 +34,22 @@ namespace Helping_Hands_2._0.Controllers
         {
             return View();
         }
+        public IActionResult MyClosedContracts(string email)
+        {
+            email = User.Identity.Name;
+            var MyClosedContracts = _careContract.MyClosedContracts(email);
+            return View(MyClosedContracts);
+        }
         [HttpPost]
         public IActionResult CreateCareVisit(VisitInfo vi)
         {
 
             return View();
         }
+       
+        //public IActionResult VisitUpdate(int VisitId)
+        //{
+
+        //}
     }
 }

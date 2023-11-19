@@ -7,6 +7,9 @@
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css" />
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 </head>
 <body>
 
@@ -32,13 +35,20 @@
                         <td>@visit.VisitDate</td>
                         <td>@visit.ApproxArrivalTime</td>
                         <td>
-                            <input class="btn btn-info btn-sm" value="Update" data-bs-toggle="tooltip" title="y" onclick="location.href='@Url.Action("Update","Conditions", new{id=visit.VisitId})'" />
+                            <input class="btn btn-success btn-sm" id="more-info-btn" value="More Info" data-toggle="modal"
+                                   data-pname="@visit.PatientName"
+                                   data-psurname="@visit.PatienSurname"
+                                   data-CellNo="@visit.CellPhoneNumber"
+                                   data-wound="@visit.WoundProgress"
+                                   data-target="#careVisit" />
+                            <input class="btn btn-info btn-sm" value="Update" data-bs-toggle="tooltip" title="y" onclick="location.href='@Url.Action("VisitUpdate","CareContract", new{id=visit.VisitId})'" />
                         </td>
                     </tr>
                 }
             </tbody>
         </table>
     </div>
+    <partial name="_CareVisits" />
 </body>
 </html>
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
@@ -48,4 +58,24 @@
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl)
     })
+    document.addEventListener('DOMContentLoaded', function () {
+        var moreInfoBtns = document.querySelectorAll('#more-info-btn');
+        console.log('We good');
+        moreInfoBtns.forEach(function (btn) {
+            btn.addEventListener('click', function () {
+
+                var PName = this.getAttribute('data-pname');
+                var PSurname = this.getAttribute('data-psurname');
+                var WDesc = this.getAttribute('data-wound');
+                var ClientNo = this.getAttribute('data-CellNo');
+
+
+                document.getElementById('careVisit').querySelector('#modalPName').innerText = PName;
+                document.getElementById('careVisit').querySelector('#modalPSurname').innerText = PSurname;
+                document.getElementById('careVisit').querySelector('#modalWound').innerHTML = WDesc;
+                document.getElementById('careVisit').querySelector('#modalCellNo').innerHTML = ClientNo;
+
+            });
+        });
+    });
 </script>
