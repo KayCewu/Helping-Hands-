@@ -38,6 +38,7 @@ public partial class CareContract
     public string? EmergencyNo { get; set; }
     [NotMapped]
     public string PhoneNumber { get; set; }
+    public List<Nurse> Nurses { get; set; }
 
 
 }

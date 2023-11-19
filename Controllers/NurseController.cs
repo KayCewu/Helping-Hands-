@@ -22,11 +22,24 @@ namespace Helping_Hands_2._0.Controllers
         {
             return View();
         }
+        public IActionResult CareVisitIndex(string email)
+        {
+            email = User.Identity.Name;
+            var MyCareVisits=_NurseService.GetVisitInfo(email);
+            return View(MyCareVisits);
+        }
         public IActionResult CareContracts()
         {
             var Contracts = _NurseService.GetCareContracts();
             return View(Contracts);
         }
+        public IActionResult OfficeManagerNewContracts()
+        {
+            var Contracts = _NurseService.GetCareContractsOfficeManager();
+            ViewBag.Nurses= _NurseService.GetNurseNameList();
+            return View(Contracts);
+        }
+       
 
         public IActionResult MyCareContracts(string email)
         {
@@ -56,7 +69,11 @@ namespace Helping_Hands_2._0.Controllers
             return View(Suburbs);
         }
         [HttpPost]
-
+        public IActionResult AssignContract(string nurseId, string careContractId)
+        {
+            _NurseService.AssignContract(nurseId, careContractId);
+            return RedirectToAction("OfficeManagerNewContracts", "Nurse");
+        }
         public IActionResult UpdateProfile(NurseUpdate Nu)
         {
             string userId = User.Identity.Name;
@@ -72,10 +89,11 @@ namespace Helping_Hands_2._0.Controllers
             if (ModelState.IsValid)
             {
                 _NurseService.CreateCareVisit(VI, id);
-                return RedirectToAction("CareVisits", "Nurse");
+                return RedirectToAction("CareVisitIndex", "Nurse");
             }
             return View();
         }
+        
 
 
     }

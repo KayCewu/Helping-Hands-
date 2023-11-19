@@ -25,6 +25,11 @@ namespace Helping_Hands_2._0.Controllers
            
             return View();
         }
+        public IActionResult RegisterManager()
+        {
+            return View();
+        }
+
         [HttpPost]
         public async Task<IActionResult> RegisterNurse(Register model)
         {
@@ -64,7 +69,45 @@ namespace Helping_Hands_2._0.Controllers
             // If we got this far, something failed; redisplay the form
             return View(model);
         }
+        [HttpPost]
+        public async Task<IActionResult> RegisterManager(Register model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = new IdentityUser { UserName = model.UserName, PasswordHash = model.PasswordHash, Email = model.UserName };
 
+                var result = await _userManager.CreateAsync(user, model.PasswordHash);
+
+                if (result.Succeeded)
+                {
+                    var roleName = "Manager"; // Replace with the actual role name
+                    var roleExists = await _roleManager.RoleExistsAsync(roleName);
+
+                    if (!roleExists)
+                    {
+                        await _roleManager.CreateAsync(new IdentityRole(roleName));
+                    }
+
+                    await _userManager.AddToRoleAsync(user, roleName);
+
+                    var userId = _userManager.GetUserId(User);
+                    roleName = "Patient";
+                    var isInRole = await _userManager.IsInRoleAsync(user, roleName);
+
+                    if (isInRole)
+                    {
+                        // Remove the user from the role
+                        await _userManager.RemoveFromRoleAsync(user, roleName);
+                    }
+
+                    return RedirectToAction("Index", "Home");
+                }
+
+            }
+
+            // If we got this far, something failed; redisplay the form
+            return View(model);
+        }
         public IActionResult Index()
         {
             return View();

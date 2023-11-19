@@ -8,6 +8,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
 using System.Linq.Expressions;
+using System.Linq;
 
 namespace Helping_Hands_2._0.Services
 {
@@ -15,13 +16,13 @@ namespace Helping_Hands_2._0.Services
     {
         private readonly HelpingHandsDbContext _context;
         private readonly IConfiguration _configuration;
-        
-        
+
+
         public NurseService(HelpingHandsDbContext db, IConfiguration config)
         {
             _context = db;
             _configuration = config;
-           
+
         }
 
         private bool disposed = false;
@@ -64,7 +65,12 @@ namespace Helping_Hands_2._0.Services
 
         public List<CareContract> GetCareContracts()
         {
-            var CareContract = _context.CareContracts.ToList();
+            var CareContract = _context.CareContracts.Where(x => x.ContractStatus == "A").ToList();
+            return CareContract;
+        }
+        public List<CareContract> GetCareContractsOfficeManager()
+        {
+            var CareContract = _context.CareContracts.Where(x => x.ContractStatus == "A").ToList();
             return CareContract;
         }
 
@@ -73,8 +79,8 @@ namespace Helping_Hands_2._0.Services
             try
             {
                 //var LoggedIn = _userManager.GetUserId(User);
-                var NurseID = _context.Nurses.Where(x => x.Email == NurseEmail).Select(n=>n.NurseCode).FirstOrDefault();
-                
+                var NurseID = _context.Nurses.Where(x => x.Email == NurseEmail).Select(n => n.NurseCode).FirstOrDefault();
+
                 string connectionString = _configuration.GetConnectionString("ApplicationDBContextConnection");
 
                 using (var connection = new SqlConnection(connectionString))
@@ -91,7 +97,7 @@ namespace Helping_Hands_2._0.Services
             }
             catch (Exception ex)
             {
-                
+
             }
 
         }
@@ -105,8 +111,8 @@ namespace Helping_Hands_2._0.Services
         public List<CareContract> MyCareContracts(string email)
         {
             int id = _context.Nurses.Where(x => x.Email == email).Select(n => n.NurseCode).FirstOrDefault();
-            
-            var MyContracts= _context.CareContracts.Where(x=>x.AssignedNurse == id && x.ContractStatus=="A").ToList();
+
+            var MyContracts = _context.CareContracts.Where(x => x.AssignedNurse == id && x.ContractStatus == "A").ToList();
 
             return MyContracts;
         }
@@ -140,5 +146,34 @@ namespace Helping_Hands_2._0.Services
             return ClientNo;
         }
 
+        public List<String> GetNurseNameList()
+        {
+            var Nurses = _context.Nurses.Select(x => x.Email).ToList();
+            return Nurses;
+        }
+
+        public void AssignContract(string NurseId, string ContractId)
+        {
+            var Nurse = _context.Nurses.Where(x => x.Email == NurseId).Select(j => j.NurseCode).FirstOrDefault();
+            var careContract = _context.CareContracts.Find(ContractId);
+            careContract.AssignedNurse = Nurse;
+
+
+            _context.SaveChanges();
+        }
+
+        public List<VisitInfo> GetVisitInfo(string email)
+        {
+            int id = _context.Nurses.Where(x => x.Email == email).Select(n => n.NurseCode).FirstOrDefault();
+            var MyContracts = _context.CareContracts.Where(y => y.AssignedNurse == id).ToList();
+            //var MyCareVisits = _context.VisitInfos.Where(x => MyContracts.Any(contract => contract.CareContractId == x.ContractNo)).ToList();
+            var contractIds = MyContracts.Select(contract => contract.CareContractId).ToList();
+
+            // Use the retrieved IDs to filter VisitInfos
+            var MyCareVisits = _context.VisitInfos
+                .Where(x => contractIds.Contains(x.ContractNo))
+                .ToList();
+            return MyCareVisits;
+        }
     }
 }

@@ -1,0 +1,91 @@
+﻿@{
+    // Assuming you are using Bootstrap for styling
+    var dropdownId = "NurseDropdown_" + Guid.NewGuid();
+}
+
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+
+<label id="CareConId"></label>
+<select id="@dropdownId" class="form-control">
+    <option value="">Select Nurse Surname</option>
+
+    @foreach (var nurse in ViewBag.Nurses)
+    {
+        <option>@nurse</option>
+    }
+</select>
+<button id="submitButton" class="btn btn-primary">Submit</button>
+
+<script>
+    $(document).ready(function () {
+        $("#@dropdownId").change(function () {
+            // Handle dropdown change event logic if needed
+            var selectedNurseId = $(this).val();
+        });
+
+        $("#submitButton").click(function () {
+            // Handle submit button click event logic
+            var selectedNurseId = $("#@dropdownId").val();
+            var careContractId = $("#CareConId").text();
+
+            // Make an AJAX request to the controller action
+            $.ajax({
+                url: '/Nurse/AssignContract', // Update the URL based on your routing
+                type: 'POST',
+                data: {
+                    nurseId: selectedNurseId,
+                    careContractId: careContractId
+                },
+                success: function (result) {
+                    // Handle the success response if needed
+                    console.log(result);
+
+                    // Redirect to the specified URL if necessary
+                    window.location.href = result.redirectUrl;
+                },
+                error: function (error) {
+                    // Handle the error if needed
+                    console.error(error.statusText);
+                }
+            });
+        });
+    });
+        //// Add any JavaScript logic if needed (e.g., handling dropdown change events)
+        //// For example, you can use jQuery to handle the change event:
+        //$(document).ready(function () {
+        //    $("#@dropdownId").change(function () {
+        //        var selectedNurseId = $(this).val();
+        //        // Your logic here...
+        //    });
+
+        //    $("#submitButton").click(function () {
+        //        debugger;
+        //        console.log('Event recognized');
+        //        //var selectedNurseId = $("#@dropdownId").val();
+        //        //var careContractId = $("#CareConId").text(); // Assuming you want the care contract id from the label
+        //        var selectedNurseId = "8";
+        //        var careContractId = "12";
+        //        var nurseId;
+        //        var careContractId;
+        //        // Make an AJAX request to the controller action
+        //        console.log("Data being sent:", { nurseId: selectedNurseId, careContractId: careContractId });
+
+        //        $.ajax({
+        //            url: '@Url.Action("AssignContract", "Nurse")',
+        //            type: 'POST',
+        //            contentType: 'application/json;charset=UTF-8',
+        //            data: { nurseId: selectedNurseId, careContractId: careContractId },
+        //            success: function (result) {
+        //                // Handle the success response if needed
+        //                console.log(result);
+        //            },
+        //            error: function (error) {
+        //                // Handle the error if needed
+        //                console.error(error.statusText);
+        //            }
+        //        });
+        //    });
+        //});
+</script>

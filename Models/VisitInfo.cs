@@ -7,7 +7,7 @@ public partial class VisitInfo
 { 
     public int VisitId { get; set; }
 
-    public int? ContractNo { get; set; }
+    public int ContractNo { get; set; }
 
     public DateTime VisitDate { get; set; }
 
