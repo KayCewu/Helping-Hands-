@@ -1,0 +1,31 @@
+﻿@model dynamic
+
+<div class="kt-portlet__body kt-portlet__body--fit kt-portlet__body--unfill">
+    <div class="kt-widget19__pic kt-portlet-fit--top kt-portlet-fit--sides" style="min-height: 300px;">
+        <div id="myMap" style="width:100%;height:300px;"></div>
+    </div>
+</div>
+<script type='text/javascript' src='https://www.bing.com/api/maps/mapcontrol?branch=release&callback=InitBingMap' async defer></script>
+
+<script>
+    function InitBingMap() {
+        //var map = new Microsoft.Maps.Map('#myMap');
+        var map = new Microsoft.Maps.Map(document.getElementById('myMap'), {
+            credentials: "AvBt46d3bz89jmPo4R1X6IVPK6foO2-dTX5BYeKDEp0Bksswgg0jg0tj_V3TGRNz",
+            zoom: 15
+        });
+
+        map.setView({
+            center: new Microsoft.Maps.Location(@Html.Raw(Model.Latitude), @Html.Raw(Model.Longitude)),
+            zoom: 8
+        });
+
+        var loc = new Microsoft.Maps.Location(
+    @Html.Raw(Model.Latitude),
+    @Html.Raw(Model.Longitude));
+
+        //Add a pushpin at the user's location.
+        var pin = new Microsoft.Maps.Pushpin(loc);
+        map.entities.push(pin);
+    }
+</script>

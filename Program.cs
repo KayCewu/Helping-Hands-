@@ -16,7 +16,7 @@ namespace Helping_Hands_2._0
 
             builder.Services.AddDbContext<HelpingHandsDbContext>(options =>
 options.UseSqlServer(connectionString));
-            builder.Services.AddTransient<IEmailSender, EmailService>();
+            
 
 
 
@@ -31,6 +31,9 @@ options.UseSqlServer(connectionString));
             builder.Services.AddTransient<IPatientService, PatientService>();
             builder.Services.AddTransient<IConditionsService, ConditionsService>();
             builder.Services.AddTransient<ICareContract, CareContractService>();
+            builder.Services.AddTransient<IEmailSender, EmailService>();
+            builder.Services.AddTransient<IAdminService, AdminService>();
+
 
 
 

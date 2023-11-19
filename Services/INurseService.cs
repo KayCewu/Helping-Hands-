@@ -6,7 +6,7 @@ namespace Helping_Hands_2._0.Services
     public interface INurseService: IDisposable
     {
         List<Nurse> GetNurses();
-        void CreateCareVisit(VisitInfo visit);
+        void CreateCareVisit(VisitInfo visit,int id);
         List<CareContract> GetCareContracts();
         void UpdateNurse(NurseUpdate nurseUpdate, string Email);
         List<Suburb> GetSuburbs();

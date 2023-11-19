@@ -7,6 +7,10 @@ namespace Helping_Hands_2._0.Areas.Identity.Data;
 
 public class ApplicationDBContext : IdentityDbContext<IdentityUser>
 {
+    public ApplicationDBContext()
+    {
+    }
+
     public ApplicationDBContext(DbContextOptions<ApplicationDBContext> options)
         : base(options)
     {

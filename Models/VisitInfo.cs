@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace Helping_Hands_2._0.Models;
 
 public partial class VisitInfo
-{
+{ 
     public int VisitId { get; set; }
 
     public int? ContractNo { get; set; }

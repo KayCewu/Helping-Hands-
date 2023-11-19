@@ -51,10 +51,11 @@ namespace Helping_Hands_2._0.Services
             return Nurses;
         }
 
-        public void CreateCareVisit(VisitInfo visit)
+        public void CreateCareVisit(VisitInfo visit, int id)
         {
             if (visit != null)
             {
+                visit.ContractNo = id;
                 _context.VisitInfos.Add(visit);
                 _context.SaveChanges();
             }

@@ -18,7 +18,7 @@ namespace Helping_Hands_2._0.Controllers
             var Nurses = _NurseService.GetNurses();
             return View(Nurses);
         }
-        public IActionResult CareVisit()
+        public IActionResult CreateCareVisit()
         {
             return View();
         }
@@ -66,11 +66,12 @@ namespace Helping_Hands_2._0.Controllers
             }
             return RedirectToAction("Profile", "Nurse");
         }
-        public IActionResult CreateCareVisit(VisitInfo VI)
+        [HttpPost]
+        public IActionResult CreateCareVisit(VisitInfo VI, int id)
         {
             if (ModelState.IsValid)
             {
-                _NurseService.CreateCareVisit(VI);
+                _NurseService.CreateCareVisit(VI, id);
                 return RedirectToAction("CareVisits", "Nurse");
             }
             return View();

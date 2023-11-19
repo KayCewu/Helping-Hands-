@@ -37,6 +37,7 @@ namespace Helping_Hands_2._0.Controllers
         [HttpPost]
         public IActionResult CreateCareVisit(VisitInfo vi)
         {
+
             return View();
         }
     }
